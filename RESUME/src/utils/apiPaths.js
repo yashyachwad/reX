@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:4000';
+const BASE_URL = 'https://rex-backend-6uig.onrender.com';
 
 // routes used for frontend
 const API_PATHS = {
