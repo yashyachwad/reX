@@ -25,6 +25,13 @@ res.set('Access-Control-Allow-Origin', 'http://localhost:5173')
     })
 )
 
+
+
+app.use(cors({
+  origin: 'https://rex-dwpg.onrender.com/',  // your deployed frontend
+  methods: ['GET','POST','PUT','DELETE'],
+  credentials: true
+}));
 // connect  DB
  connectDB();
 
