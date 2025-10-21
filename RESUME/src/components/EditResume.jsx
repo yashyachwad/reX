@@ -7,7 +7,7 @@ import { AlertCircle, ArrowLeft, Bus, Check, Download, Loader2, Palette, Save, T
 import toast from 'react-hot-toast'
 import axiosInstance from '../utils/axiosInstance'
 import API_PATHS from '../utils/apiPaths'
-import { fixTailwindColors } from '../utils/Colors'
+import { fixTailwindColors } from '../utils/colors'
 import html2canvas from 'html2canvas'
 import Modal from '../components/Model'
 import jsPDF from 'jspdf'
