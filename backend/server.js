@@ -2,59 +2,61 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
-const userRouter = require('./routes/userRoutes')
-const path = require('path');
+const userRouter = require('./routes/userRoutes');
 const resumeRoutes = require('./routes/resumeRoutes');
-
+const path = require('path');
 
 dotenv.config();
-// connect  DB
- connectDB();
+
+// Connect to MongoDB
+connectDB();
 
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-
 // ✅ Proper CORS configuration
 const allowedOrigins = [
-  'http://localhost:5173',
-  'https://rex-frontend-pf7l.onrender.com',
- 'https://rex-frontend.onrender.com' 
+  'http://localhost:5173',                  // local dev
+  'https://rex-frontend-pf7l.onrender.com', // old frontend (optional)
+  'https://rex-frontend.onrender.com'       // new deployed frontend
 ];
 
 app.use(cors({
-  origin: ['https://rex-frontend.onrender.com', 'https://rex-frontend-pf7l.onrender.com'], // your deployed frontend
+  origin: function(origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      console.log('❌ Blocked by CORS:', origin);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET','POST','PUT','DELETE'],
-  credentials: true
+  credentials: true,
 }));
-
 
 // Middleware
 app.use(express.json());
-//app.use(cors());  app.use(cors());
 
+// ✅ Serve uploads folder statically with CORS headers
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-app.use('/uploads',
-    express.static(path.join(__dirname, 'uploads'), {
-        setHeaders : (res, _path) =>{
-res.set('Access-Control-Allow-Origin', 'https://rex-frontend.onrender.com')
-        }
-    })
-)
-
+// API Routes
 app.use('/api', userRouter);
 app.use('/api/resume', resumeRoutes);
 
+// Optional: test route for API working
+app.get('/api', (req, res) => {
+  res.send('API is working');
+});
 
+// Serve frontend in production (if you have a build folder)
+const __dirname1 = path.resolve();
+app.use(express.static(path.join(__dirname1, 'frontend', 'dist')));
+app.get('*', (req, res) =>
+  res.sendFile(path.join(__dirname1, 'frontend', 'dist', 'index.html'))
+);
 
-
-// routes
-app.get('/' ,(req,res)=>{
-    console.log("Api called");
-    res.send("Api Working");
-})
-
-app.listen(PORT, '0.0.0.0', ()=>{
-    console.log(` Resume Working on http://localhost:${PORT} and http://172.16.8.77:${PORT} `);
-})
-
+// Start server
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running on port ${PORT}`);
+});
