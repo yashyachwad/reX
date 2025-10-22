@@ -18,11 +18,12 @@ const PORT = process.env.PORT || 4000;
 // ✅ Proper CORS configuration
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://rex-frontend-pf7l.onrender.com'
+  'https://rex-frontend-pf7l.onrender.com',
+ 'https://rex-frontend.onrender.com' 
 ];
 
 app.use(cors({
-  origin: 'https://rex-frontend-pf7l.onrender.com',  // your deployed frontend
+  origin: ['https://rex-frontend.onrender.com', 'https://rex-frontend-pf7l.onrender.com'], // your deployed frontend
   methods: ['GET','POST','PUT','DELETE'],
   credentials: true
 }));
