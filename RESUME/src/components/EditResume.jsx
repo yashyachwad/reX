@@ -302,19 +302,19 @@ const EditResume = () => {
         })
         break
 
-      case "projects":
-        resumeData.projects.forEach(({ title, description }, index) => {
-          if (!title.trim()) errors.push(`Project Title is required in project ${index + 1}`)
-          if (!description.trim()) errors.push(`Project description is required in project ${index + 1}`)
-        })
-        break
+      // case "projects":
+      //   resumeData.projects.forEach(({ title, description }, index) => {
+      //     if (!title.trim()) errors.push(`Project Title is required in project ${index + 1}`)
+      //     if (!description.trim()) errors.push(`Project description is required in project ${index + 1}`)
+      //   })
+      //   break
 
-      case "certifications":
-        resumeData.certifications.forEach(({ title, issuer }, index) => {
-          if (!title.trim()) errors.push(`Certification Title is required in certification ${index + 1}`)
-          if (!issuer.trim()) errors.push(`Issuer is required in certification ${index + 1}`)
-        })
-        break
+      // case "certifications":
+      //   resumeData.certifications.forEach(({ title, issuer }, index) => {
+      //     if (!title.trim()) errors.push(`Certification Title is required in certification ${index + 1}`)
+      //     if (!issuer.trim()) errors.push(`Issuer is required in certification ${index + 1}`)
+      //   })
+      //   break
 
       case "additionalInfo":
         if (resumeData.languages.length === 0 || !resumeData.languages[0].name?.trim()) {
