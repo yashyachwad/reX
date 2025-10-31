@@ -1,0 +1,13 @@
+# Ignore dependencies
+node_modules/
+RESUME/node_modules/
+backend/node_modules/
+
+# Build output
+dist/
+RESUME/dist/
+backend/dist/
+
+# Environment variables
+.env
+backend/.env
