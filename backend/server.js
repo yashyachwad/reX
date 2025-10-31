@@ -52,9 +52,10 @@ app.get('/api', (req, res) => {
 // Serve frontend in production (if you have a build folder)
 const __dirname1 = path.resolve();
 app.use(express.static(path.join(__dirname1, 'frontend', 'dist')));
-app.get('/*', (req, res) =>
-  res.sendFile(path.join(__dirname1, 'frontend', 'dist', 'index.html'))
-);
+app.get(/.*/, (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
+
 
 
 
